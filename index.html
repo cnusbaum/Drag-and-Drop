@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test Drag & Drop</title>
+	<script src="js/jquery-1.5.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-ui-1.8.9.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	
+	<style type="text/css">
+		#dropContainer, #dragContainer { 
+			display: block;
+			width: 300px;
+			float: left;
+			margin: 20px;
+			border: 1px solid #666;
+			height: 400px;
+			}
+
+		.dragItem { 
+			display: block;
+			margin: 20px;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			cursor: pointer;
+			}
+			
+		.dragItem:active { 
+			-webkit-box-shadow: 3px 3px 5px #888;
+			-moz-box-shadow: 3px 3px 5px #888;
+			box-shadow: 3px 3px 5px #888;
+			background-color: #999;
+			color: #000;
+			border: 1px solid #333;
+			}
+	</style>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			//make item draggable
+			//contains element to the body of the page
+			//cursor at offsets the cursor
+			$(".dragItem").draggable({ containment: 'body', cursorAt: { left: 5} , opacity: 0.35, revert: true, });
+			
+			$("#attachmentsList").droppable();
+				$("#dropContainer").droppable({
+					drop: function() {}
+				});
+			
+		});
+	</script>
+
+</head>
+<body>
+	<h2>Drag</h2>
+	<div id="dragContainer">
+		<div class="dragItem">
+			Drag Me Foo!
+		</div>
+		<div class="dragItem">
+			Drag Me Too Foo!
+		</div>
+	</div>
+
+	<div id="dropContainer">
+		<ul id="attachmentsList">
+			<li>No Attachments</li>
+		</ul>
+	</div>
+
+</body>
+</html>
