@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Test Drag & Drop</title>
+	<title>Test Drag &amp; Drop</title>
 	<script src="js/jquery-1.5.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jquery-ui-1.8.9.custom.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
@@ -35,20 +35,29 @@
 			color: #000;
 			border: 1px solid #333;
 			}
+			
+		#attachmentsList li { 
+			display: block;
+			width: 250px;
+			height
+			}
 	</style>
 	
 	<script type="text/javascript">
+	
+		//doc ready function
 		$(document).ready(function() {
 			
 			//make item draggable
-			//contains element to the body of the page
-			//cursor at offsets the cursor
-			$(".dragItem").draggable({ containment: 'body', cursorAt: { left: 5} , opacity: 0.35, revert: true, });
+			$(".dragItem").draggable({ containment: 'body', cursorAt: { left: 5} , opacity: 0.35, revert: true, connectToSortable: 'ul#attachmentsList' });
 			
-			$("#attachmentsList").droppable();
-				$("#dropContainer").droppable({
-					drop: function() {}
-				});
+			$("ul#attachmentsList").droppable({
+					drop: function() { $(".dragItem").draggable({ revert: false }); }
+			});
+			
+			// defines where to make the ajax call from
+			//$.ajaxSetup({ url: 'index.html'});
+			
 			
 		});
 	</script>
@@ -57,12 +66,14 @@
 <body>
 	<h2>Drag</h2>
 	<div id="dragContainer">
-		<div class="dragItem">
-			Drag Me Foo!
-		</div>
-		<div class="dragItem">
-			Drag Me Too Foo!
-		</div>
+		<ul>
+			<li class="dragItem">
+				Drag Me Foo!
+			</li>
+			<li class="dragItem">
+				Drag Me Too Foo!
+			</li>
+		</ul>
 	</div>
 
 	<div id="dropContainer">
