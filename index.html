@@ -18,6 +18,14 @@
 			height: 400px;
 			}
 
+		.activate { 
+			background-color: red;
+			}
+			
+		.good { 
+			background-color: green;
+			}
+		
 		.dragItem { 
 			display: block;
 			margin: 20px;
@@ -49,15 +57,22 @@
 		$(document).ready(function() {
 			
 			//make item draggable
-			$(".dragItem").draggable({ containment: 'body', cursorAt: { left: 5} , opacity: 0.35, revert: true, connectToSortable: 'ul#attachmentsList' });
+			$(".dragItem").draggable({ containment: 'body', cursorAt: { left: 5} , opacity: 0.5, revert: true, connectToSortable: 'ul#attachmentsList' });
 			
-			$("ul#attachmentsList").droppable({
-					drop: function() { $(".dragItem").draggable({ revert: false }); }
+			$("#dropContainer").droppable({
+					//Action that happens when you drop something					
+					drop: function() { 
+						//$('ui.draggable').droppable('disable'); 
+						$('').droppable('disable'); 
+						$('<li>' + $('ul.draggable').text() + '</li>').appendTo('ul#attachmentsList');
+						}, 	
+					//Aciton that happens when a draggable is dragged
+					activate: function(event, ui) { $('#dropContainer').addClass('activate'); },
+					//Deactivate 
+					deactivate: function(event, ui) { $('#dropContainer').removeClass('activate'); }
+					
+					
 			});
-			
-			// defines where to make the ajax call from
-			//$.ajaxSetup({ url: 'index.html'});
-			
 			
 		});
 	</script>
@@ -67,10 +82,10 @@
 	<h2>Drag</h2>
 	<div id="dragContainer">
 		<ul>
-			<li class="dragItem">
+			<li class="dragItem" title="Me One">
 				Drag Me Foo!
 			</li>
-			<li class="dragItem">
+			<li class="dragItem" title="Me Too">
 				Drag Me Too Foo!
 			</li>
 		</ul>
@@ -80,6 +95,7 @@
 		<ul id="attachmentsList">
 			<li>No Attachments</li>
 		</ul>
+		<div id="good"></div>
 	</div>
 
 </body>
